@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/thoughtbot/redbird.svg?style=svg&circle-token=ffeb06ba85ab9e15f98730027745be851d647b61&branch=master)](https://circleci.com/gh/thoughtbot/redbird)
+
 # Redbird
 
 **Redbird is part of the [thoughtbot Elixir family][elixir-phoenix] of projects.**
