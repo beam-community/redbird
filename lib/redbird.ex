@@ -1,0 +1,2 @@
+defmodule Redbird do
+end
