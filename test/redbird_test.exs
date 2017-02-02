@@ -27,6 +27,13 @@ defmodule RedbirdTest do
     :ok = Application.start(:redbird)
   end
 
+  setup do
+    on_exit fn ->
+      Redbird.Redis.keys(Plug.Session.REDIS.namespace <> "*")
+      |> Redbird.Redis.del
+    end
+  end
+
   describe "get" do
     test "when there is value stored it is retrieved" do
       conn = conn(:get, "/")
@@ -89,5 +96,26 @@ defmodule RedbirdTest do
 
       assert {nil, %{}} = REDIS.get(conn, key, options)
     end
+  end
+
+  test "redbird_session is appended to key names by default" do
+    conn = %{}
+    key = "redis_session"
+    options = []
+    REDIS.put(conn, key, %{foo: :bar}, options)
+
+    assert {"redbird_session_redis_session", %{foo: :bar}} = REDIS.get(conn, "redbird_session_" <> key, options)
+  end
+
+  test "user can set their own key namespace" do
+    Application.put_env(:redbird, :key_namespace, "test_")
+    Redbird.Redis.keys("test_*")
+    |> Redbird.Redis.del
+    conn = %{}
+    key = "redis_session"
+    options = []
+    REDIS.put(conn, key, %{foo: :bar}, options)
+
+    assert {"test_redis_session", %{foo: :bar}} = REDIS.get(conn, "test_" <> key, options)
   end
 end

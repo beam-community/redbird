@@ -17,6 +17,10 @@ defmodule Redbird.Redis do
     Exredis.Api.del(pid(), key)
   end
 
+  def keys(pattern) do
+    Exredis.Api.keys(pattern)
+  end
+
   def pid do
     :redbird_phoenix_session
   end
