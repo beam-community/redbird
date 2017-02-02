@@ -13,4 +13,4 @@ git add mix.exs
 mix do hex.build, hex.publish
 git add doc
 git commit -m "Release version $release_version"
-hub release create release_version
+hub release create $release_version
