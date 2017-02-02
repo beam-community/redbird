@@ -20,7 +20,7 @@ It works great for Phoenix!
 
   def deps do
     [
-      {:redbird, "~> 0.2.0"},
+      {:redbird, "~> 0.2.1"},
     ]
   end
 ```
