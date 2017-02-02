@@ -9,8 +9,8 @@ sed -i '' "s/$previous_version/$release_version/" mix.exs
 mix docs
 git add README.md
 git add mix.exs
-git add doc
 
-git commit -m "Release version $release_version"
 mix do hex.build, hex.publish
+git add doc
+git commit -m "Release version $release_version"
 hub release create release_version
