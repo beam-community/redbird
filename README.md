@@ -44,6 +44,24 @@ plug Plug.Session,
   expiration_in_seconds: 3000 # Optional - default is 30 days
 ```
 
+### Configure Redbird
+
+All redbird created keys are automatically namespaced with `redbird_session` by
+default. If you'd like to set your own custom, per app, configuration you can
+set that in the config.
+
+```elixir
+config :redbird, key_namespace: "my_app_"
+```
+
+## Mix tasks
+
+This will give you access to the mix task `mix redbird.delete_all_sessions`, for
+clearing all Redbird created user sessions from Redis. If you have not set up a
+per app `key_namespace` in the config this will clear ALL Redbird sessions on
+your server. Otherwise it will only clear the sessions created by the specific
+app you're running it in.
+
 ## Contributing
 
 See the [CONTRIBUTING] document.
