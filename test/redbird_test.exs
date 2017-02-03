@@ -100,11 +100,10 @@ defmodule RedbirdTest do
 
   test "redbird_session is appended to key names by default" do
     conn = %{}
-    key = "redis_session"
     options = []
-    REDIS.put(conn, key, %{foo: :bar}, options)
+    key = REDIS.put(conn, nil, %{foo: :bar}, options)
 
-    assert {"redbird_session_redis_session", %{foo: :bar}} = REDIS.get(conn, "redbird_session_" <> key, options)
+    assert key =~ "redbird_session_"
   end
 
   test "user can set their own key namespace" do
@@ -112,10 +111,10 @@ defmodule RedbirdTest do
     Redbird.Redis.keys("test_*")
     |> Redbird.Redis.del
     conn = %{}
-    key = "redis_session"
     options = []
-    REDIS.put(conn, key, %{foo: :bar}, options)
+    key = REDIS.put(conn, nil, %{foo: :bar}, options)
 
-    assert {"test_redis_session", %{foo: :bar}} = REDIS.get(conn, "test_" <> key, options)
+    assert key =~ "test_"
+    Application.delete_env(:redbird, :key_namespace)
   end
 end

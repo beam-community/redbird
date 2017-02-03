@@ -22,16 +22,15 @@ defmodule Plug.Session.REDIS do
   end
 
   def put(conn, nil, data, init_options) do
-    put(conn, generate_random_key(), data, init_options)
+    put(conn, add_namespace(generate_random_key()), data, init_options)
   end
-  def put(_conn, redis_key, data, init_options) do
-    key = add_namespace(redis_key)
+  def put(_conn, namespaced_key, data, init_options) do
     setex(%{
-      key: key,
+      key: namespaced_key,
       value: data,
       seconds: session_expiration(init_options)
     })
-    key
+    namespaced_key
   end
 
   def delete(_conn, redis_key, _kinit_options) do
