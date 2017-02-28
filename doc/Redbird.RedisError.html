@@ -5,14 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.14.5">
-    <title>Redbird.Redis – redbird v0.3.0</title>
+    <title>Redbird.RedisError – redbird v0.3.0</title>
     <link rel="stylesheet" href="dist/app-a07cea761b.css" />
     
-      <link rel="canonical" href="https://hexdocs.pm/redbird/Redbird.Redis.html" />
+      <link rel="canonical" href="https://hexdocs.pm/redbird/Redbird.RedisError.html" />
     
     <script src="dist/sidebar_items-6f3bb43384.js"></script>
   </head>
-  <body data-type="modules">
+  <body data-type="exceptions">
     <script>if(localStorage.getItem('night-mode')) document.body.className += ' night-mode';</script>
 
     <div class="main">
@@ -63,7 +63,9 @@
 
       <h1>
         <small class="visible-xs">redbird v0.3.0</small>
-        Redbird.Redis
+        Redbird.RedisError
+        
+          <small>exception</small>
         
         
       </h1>
@@ -87,37 +89,25 @@
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#del/1">del(key)</a>
+    <a href="#exception/1">exception(msg)</a>
   </div>
+  
+    <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/elixir/Exception.html#c:exception/1"><code class="inline">Exception.exception/1</code></a></p>
+</div>
   
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#get/1">get(value)</a>
+    <a href="#message/1">message(exception)</a>
   </div>
+  
+    <div class="summary-synopsis"><p>Callback implementation for <a href="https://hexdocs.pm/elixir/Exception.html#c:message/1"><code class="inline">Exception.message/1</code></a></p>
+</div>
   
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#keys/1">keys(pattern)</a>
-  </div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#pid/0">pid()</a>
-  </div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#setex/1">setex(map)</a>
-  </div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#start_link/1">start_link(name)</a>
+    <a href="#raise/1">raise(list)</a>
   </div>
   
 </div>
@@ -142,88 +132,59 @@
             </a>
             Functions
           </h1>
-          <div class="detail" id="del/1">
+          <div class="detail" id="exception/1">
   
   <div class="detail-header">
-    <a href="#del/1" class="detail-link" title="Link to this function">
+    <a href="#exception/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">del(key)</span>
+    <span class="signature">exception(msg)</span>
     
     
+    
+      <div class="specs">
+        
+          <pre>exception(<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>) :: <a href="https://hexdocs.pm/elixir/Exception.html#t:t/0">Exception.t</a></pre>
+        
+          <pre>exception(<a href="https://hexdocs.pm/elixir/Keyword.html#t:t/0">Keyword.t</a>) :: <a href="https://hexdocs.pm/elixir/Exception.html#t:t/0">Exception.t</a></pre>
+        
+      </div>
     
   </div>
   <section class="docstring">
-    
+    <p>Callback implementation for <a href="https://hexdocs.pm/elixir/Exception.html#c:exception/1"><code class="inline">Exception.exception/1</code></a>.</p>
+
   </section>
 </div>
-<div class="detail" id="get/1">
+<div class="detail" id="message/1">
   
   <div class="detail-header">
-    <a href="#get/1" class="detail-link" title="Link to this function">
+    <a href="#message/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">get(value)</span>
+    <span class="signature">message(exception)</span>
     
     
+    
+      <div class="specs">
+        
+          <pre>message(<a href="https://hexdocs.pm/elixir/Exception.html#t:t/0">Exception.t</a>) :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a></pre>
+        
+      </div>
     
   </div>
   <section class="docstring">
-    
+    <p>Callback implementation for <a href="https://hexdocs.pm/elixir/Exception.html#c:message/1"><code class="inline">Exception.message/1</code></a>.</p>
+
   </section>
 </div>
-<div class="detail" id="keys/1">
+<div class="detail" id="raise/1">
   
   <div class="detail-header">
-    <a href="#keys/1" class="detail-link" title="Link to this function">
+    <a href="#raise/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">keys(pattern)</span>
-    
-    
-    
-  </div>
-  <section class="docstring">
-    
-  </section>
-</div>
-<div class="detail" id="pid/0">
-  
-  <div class="detail-header">
-    <a href="#pid/0" class="detail-link" title="Link to this function">
-      <i class="icon-link"></i>
-    </a>
-    <span class="signature">pid()</span>
-    
-    
-    
-  </div>
-  <section class="docstring">
-    
-  </section>
-</div>
-<div class="detail" id="setex/1">
-  
-  <div class="detail-header">
-    <a href="#setex/1" class="detail-link" title="Link to this function">
-      <i class="icon-link"></i>
-    </a>
-    <span class="signature">setex(map)</span>
-    
-    
-    
-  </div>
-  <section class="docstring">
-    
-  </section>
-</div>
-<div class="detail" id="start_link/1">
-  
-  <div class="detail-header">
-    <a href="#start_link/1" class="detail-link" title="Link to this function">
-      <i class="icon-link"></i>
-    </a>
-    <span class="signature">start_link(name)</span>
+    <span class="signature">raise(list)</span>
     
     
     

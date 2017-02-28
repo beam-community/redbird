@@ -4,7 +4,7 @@ fonts/icomoon.eot
 fonts/icomoon.svg
 fonts/icomoon.ttf
 fonts/icomoon.woff
-dist/sidebar_items-6fde98b478.js
+dist/sidebar_items-6f3bb43384.js
 api-reference.html
 index.html
 404.html
@@ -12,3 +12,4 @@ Mix.Tasks.Redbird.DeleteAllSessions.html
 Plug.Session.REDIS.html
 Redbird.html
 Redbird.Redis.html
+Redbird.RedisError.html
