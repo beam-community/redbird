@@ -25,15 +25,27 @@ defmodule Plug.Session.REDIS do
     put(conn, add_namespace(generate_random_key()), data, init_options)
   end
   def put(_conn, namespaced_key, data, init_options) do
-    setex(%{
-      key: namespaced_key,
-      value: data,
-      seconds: session_expiration(init_options)
-    })
-    namespaced_key
+    set_key_with_retries(
+      namespaced_key,
+      data,
+      session_expiration(init_options),
+      1
+    )
   end
 
-  def delete(_conn, redis_key, _kinit_options) do
+  defp set_key_with_retries(key, data, seconds, counter) do
+    case setex(%{key: key, value: data, seconds: seconds}) do
+      :ok -> key
+      response ->
+        if counter > 5 do
+          Redbird.RedisError.raise(error: response, key: key)
+        else
+          set_key_with_retries(key, data, seconds, counter + 1)
+        end
+    end
+  end
+
+  def delete(_conn, redis_key, _init_options) do
     del(redis_key)
     :ok
   end
@@ -59,5 +71,22 @@ defmodule Plug.Session.REDIS do
       seconds when is_integer(seconds) -> seconds
       _ -> @max_session_time
     end
+  end
+end
+
+defmodule Redbird.RedisError do
+  defexception [:message]
+
+  def raise([error: error, key: key]) do
+    message = "#{base_message} Redis Error: #{error} key: #{key}"
+    raise __MODULE__, message
+  end
+
+  def exception(message) do
+    %__MODULE__{message: message}
+  end
+
+  defp base_message do
+    "Redbird was unable to store the session in redis."
   end
 end

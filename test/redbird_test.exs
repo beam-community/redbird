@@ -2,6 +2,7 @@ defmodule RedbirdTest do
   use ExUnit.Case, async: true
   use Plug.Test
   alias Plug.Session.REDIS
+  import Mock
 
   @default_opts [
     store: :redis,
@@ -83,6 +84,17 @@ defmodule RedbirdTest do
         |> send_resp(200, "")
 
       assert conn |> get_session(:foo) |> is_nil
+    end
+
+    test "it throws an exception after multiple attempts to store and fail" do
+      with_mock Redbird.Redis, [setex: fn(_) -> "FAIL" end] do
+        assert_raise Redbird.RedisError, ~r/Redbird was unable to store the session in redis. Redis Error: FAIL/, fn ->
+          conn(:get, "/")
+          |> sign_conn
+          |> put_session(:foo, "bar")
+          |> send_resp(200, "")
+        end
+      end
     end
   end
 
