@@ -8,7 +8,7 @@ defmodule Redbird.Mixfile do
       deps: deps(),
       elixir: "~> 1.3",
       start_permanent: Mix.env == :prod,
-      version: "0.3.0",
+      version: "0.4.0",
       package: [
         maintainers: ["anellis", "drapergeek"],
         licenses: ["MIT"],
