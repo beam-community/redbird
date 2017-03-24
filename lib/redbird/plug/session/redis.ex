@@ -51,15 +51,12 @@ defmodule Plug.Session.REDIS do
   end
 
   defp add_namespace(key) do
-    namespace <> key
+    namespace() <> key
   end
 
+  @default_namespace "redbird_session_"
   def namespace do
-    Application.get_env(:redbird, :key_namespace, redbird_namespace)
-  end
-
-  def redbird_namespace do
-    "redbird_session_"
+    Application.get_env(:redbird, :key_namespace, @default_namespace)
   end
 
   defp generate_random_key do
@@ -76,17 +73,14 @@ end
 
 defmodule Redbird.RedisError do
   defexception [:message]
+  @base_message "Redbird was unable to store the session in redis."
 
   def raise([error: error, key: key]) do
-    message = "#{base_message} Redis Error: #{error} key: #{key}"
+    message = "#{@base_message} Redis Error: #{error} key: #{key}"
     raise __MODULE__, message
   end
 
   def exception(message) do
     %__MODULE__{message: message}
-  end
-
-  defp base_message do
-    "Redbird was unable to store the session in redis."
   end
 end
