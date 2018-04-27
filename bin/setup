@@ -1,3 +1,4 @@
 set -e
 
+asdf install
 mix deps.get
