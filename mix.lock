@@ -3,6 +3,6 @@
   "ex_doc": {:hex, :ex_doc, "0.14.5", "c0433c8117e948404d93ca69411dd575ec6be39b47802e81ca8d91017a0cf83c", [:mix], [{:earmark, "~> 1.0", [hex: :earmark, optional: false]}]},
   "exredis": {:hex, :exredis, "0.2.6", "814dcd90d6e9706e99cd873817996cfd7e95be7726b46a52d14f3c9c3394150e", [:mix], [{:eredis, ">= 1.0.8", [hex: :eredis, repo: "hexpm", optional: false]}], "hexpm"},
   "meck": {:hex, :meck, "0.8.9", "64c5c0bd8bcca3a180b44196265c8ed7594e16bcc845d0698ec6b4e577f48188", [:rebar3], [], "hexpm"},
-  "mime": {:hex, :mime, "1.0.1", "05c393850524767d13a53627df71beeebb016205eb43bfbd92d14d24ec7a1b51", [:mix], []},
+  "mime": {:hex, :mime, "1.2.0", "78adaa84832b3680de06f88f0997e3ead3b451a440d183d688085be2d709b534", [:mix], [], "hexpm"},
   "mock": {:hex, :mock, "0.3.1", "994f00150f79a0ea50dc9d86134cd9ebd0d177ad60bd04d1e46336cdfdb98ff9", [:mix], [{:meck, "~> 0.8.8", [hex: :meck, repo: "hexpm", optional: false]}], "hexpm"},
-  "plug": {:hex, :plug, "1.3.0", "6e2b01afc5db3fd011ca4a16efd9cb424528c157c30a44a0186bcc92c7b2e8f3", [:mix], [{:cowboy, "~> 1.0.1 or ~> 1.1", [hex: :cowboy, optional: true]}, {:mime, "~> 1.0", [hex: :mime, optional: false]}]}}
+  "plug": {:hex, :plug, "1.5.0", "224b25b4039bedc1eac149fb52ed456770b9678bbf0349cdd810460e1e09195b", [:mix], [{:cowboy, "~> 1.0.1 or ~> 1.1 or ~> 2.1", [hex: :cowboy, repo: "hexpm", optional: true]}, {:mime, "~> 1.0", [hex: :mime, repo: "hexpm", optional: false]}], "hexpm"}}
