@@ -1,0 +1,30 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/elixir:1.3.4
+      - image: redis:2.8.6
+    working_directory: /home/circleci/redbird
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - dependency-cache-{{ arch }}-{{ .Branch }}-{{ checksum "mix.lock" }}
+          - dependency-cache-{{ arch }}-{{ .Branch }}
+          - dependency-cache-{{ arch }}
+      - run: mix local.hex --force && mix local.rebar --force && mix deps.get
+      - save_cache:
+          key: dependency-cache-{{ arch }}-{{ .Branch }}-{{ checksum "mix.lock" }}
+          paths: "deps"
+      - save_cache:
+          key: dependency-cache-{{ arch }}-{{ .Branch }}
+          paths: "deps"
+      - save_cache:
+          key: dependency-cache-{{ arch }}
+          paths: "deps"
+      - run: bin/test_suite
+experimental:
+  notify:
+    branches:
+      only:
+        - master

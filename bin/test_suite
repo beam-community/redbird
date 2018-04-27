@@ -1,1 +1,1 @@
-mix test
+mix compile --warnings-as-errors && mix test
