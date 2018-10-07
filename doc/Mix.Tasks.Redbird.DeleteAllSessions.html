@@ -1,23 +1,30 @@
     <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.14.5">
-    <title>Mix.Tasks.Redbird.DeleteAllSessions – redbird v0.4.0</title>
-    <link rel="stylesheet" href="dist/app-a07cea761b.css" />
+    <meta name="generator" content="ExDoc v0.18.4">
+    <title>redbird.delete_all_sessions – redbird v0.4.0</title>
+    <link rel="stylesheet" href="dist/app-480ffdc169.css" />
     
-      <link rel="canonical" href="https://hexdocs.pm/redbird/Mix.Tasks.Redbird.DeleteAllSessions.html" />
+    <script src="dist/sidebar_items-53c0f02819.js"></script>
     
-    <script src="dist/sidebar_items-4747490620.js"></script>
+    
+    
+    
   </head>
-  <body data-type="modules">
-    <script>if(localStorage.getItem('night-mode')) document.body.className += ' night-mode';</script>
+  <body data-type="tasks">
+    <script>try { if(localStorage.getItem('night-mode')) document.body.className += ' night-mode'; } catch (e) { }</script>
 
     <div class="main">
-<button class="sidebar-toggle">
-  <i class="icon-menu"></i>
+<button class="sidebar-button sidebar-toggle">
+  <span class="icon-menu" aria-hidden="true"></span>
+  <span class="sr-only">Toggle Sidebar</span>
+</button>
+<button class="sidebar-button night-mode-toggle">
+  <span class="icon-theme" aria-hidden="true"></span>
+  <span class="sr-only">Toggle Theme</span>
 </button>
 <section class="sidebar">
 
@@ -34,10 +41,12 @@
     
   </a>
 
-  <div class="sidebar-search">
-    <i class="icon-search"></i>
-    <input type="text" class="sidebar-searchInput" placeholder="search" autocomplete="off" />
-  </div>
+  <form class="sidebar-search" action="search.html">
+    <button type="submit" class="search-button">
+      <span class="icon-search" aria-hidden="true"></span>
+    </button>
+    <input name="q" type="text" id="search-list" class="search-input" placeholder="Search" aria-label="Search" autocomplete="off" />
+  </form>
 
   <ul class="sidebar-listNav">
     <li><a id="extras-list" href="#full-list">Pages</a></li>
@@ -51,6 +60,8 @@
     
 
     
+      <li><a id="tasks-list" href="#full-list">Mix Tasks</a></li>
+    
   </ul>
   <div class="gradient"></div>
   <ul id="full-list" class="sidebar-fullList"></ul>
@@ -63,8 +74,7 @@
 
       <h1>
         <small class="visible-xs">redbird v0.4.0</small>
-        Mix.Tasks.Redbird.DeleteAllSessions
-        
+        mix redbird.delete_all_sessions
         
       </h1>
 
@@ -82,7 +92,8 @@ session config. If no argument is given, it will delete all redbird sessions.</p
         <section id="summary" class="details-list">
           <h1 class="section-heading">
             <a class="hover-link" href="#summary">
-              <i class="icon-link"></i>
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
             </a>
             Summary
           </h1>
@@ -115,8 +126,6 @@ a list of command line args</p>
 
           
 
-          
-
         </section>
       
 
@@ -126,15 +135,18 @@ a list of command line args</p>
         <section id="functions" class="details-list">
           <h1 class="section-heading">
             <a class="hover-link" href="#functions">
-              <i class="icon-link"></i>
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
             </a>
             Functions
           </h1>
           <div class="detail" id="delete_all_sessions/1">
   
+  
   <div class="detail-header">
     <a href="#delete_all_sessions/1" class="detail-link" title="Link to this function">
-      <i class="icon-link"></i>
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
     </a>
     <span class="signature">delete_all_sessions(namespace)</span>
     
@@ -147,9 +159,11 @@ a list of command line args</p>
 </div>
 <div class="detail" id="run/1">
   
+  
   <div class="detail-header">
     <a href="#run/1" class="detail-link" title="Link to this function">
-      <i class="icon-link"></i>
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
     </a>
     <span class="signature">run(args)</span>
     
@@ -168,26 +182,27 @@ a list of command line args.</p>
       
 
       
-
-      
           <footer class="footer">
         <p>
           <span class="line">
             Built using
-            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.14.5),
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.18.4),
           </span>
           <span class="line">
             designed by
             <a href="https://twitter.com/dignifiedquire" target="_blank" title="@dignifiedquire">Friedel Ziegelmayer</a>.
             </span>
         </p>
-        <button class="night-mode-toggle" />
       </footer>
     </div>
   </div>
 </section>
 </div>
-  <script src="dist/app-4aef34ad5f.js"></script>
+  <script src="dist/app-9bd040e5e5.js"></script>
+  
+  
+  
+  
   </body>
 </html>
 
