@@ -14,7 +14,9 @@ defmodule Redbird.Mixfile do
         licenses: ["MIT"],
         links: %{"GitHub" => "https://github.com/thoughtbot/redbird"}
       ],
-      description: "A Redis adapter for Plug.Session"
+      description: "A Redis adapter for Plug.Session",
+      source_url: "https://github.com/thoughtbot/redbird",
+      docs: [extras: ["README.md"], main: "readme"]
     ]
   end
 
