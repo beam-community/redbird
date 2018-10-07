@@ -11,12 +11,13 @@ defmodule Mix.Tasks.Redbird.DeleteAllSessions do
   """
   def run(_args) do
     Application.ensure_started(:redbird)
-    Plug.Session.REDIS.namespace
+
+    Plug.Session.REDIS.namespace()
     |> delete_all_sessions
   end
 
   def delete_all_sessions(namespace) do
     Redbird.Redis.keys("#{namespace}*")
-    |> Redbird.Redis.del
+    |> Redbird.Redis.del()
   end
 end

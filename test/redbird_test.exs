@@ -6,14 +6,15 @@ defmodule RedbirdTest do
 
   @default_opts [
     store: :redis,
-    key: "_session_key",
+    key: "_session_key"
   ]
   @secret String.duplicate("thoughtbot", 8)
 
   defp sign_plug(options) do
     options =
-      options ++ @default_opts
+      (options ++ @default_opts)
       |> Keyword.put(:encrypt, false)
+
     Plug.Session.init(options)
   end
 
@@ -29,18 +30,19 @@ defmodule RedbirdTest do
   end
 
   setup do
-    on_exit fn ->
-      Redbird.Redis.keys(Plug.Session.REDIS.namespace <> "*")
-      |> Redbird.Redis.del
-    end
+    on_exit(fn ->
+      Redbird.Redis.keys(Plug.Session.REDIS.namespace() <> "*")
+      |> Redbird.Redis.del()
+    end)
   end
 
   describe "get" do
     test "when there is value stored it is retrieved" do
-      conn = conn(:get, "/")
-           |> sign_conn
-           |> put_session(:foo, "bar")
-           |> send_resp(200, "")
+      conn =
+        conn(:get, "/")
+        |> sign_conn
+        |> put_session(:foo, "bar")
+        |> send_resp(200, "")
 
       conn =
         conn(:get, "/")
@@ -62,18 +64,21 @@ defmodule RedbirdTest do
 
   describe "put" do
     test "it sets the session properly" do
-      conn = conn(:get, "/")
-           |> sign_conn
-           |> put_session(:foo, "bar")
-           |> send_resp(200, "")
+      conn =
+        conn(:get, "/")
+        |> sign_conn
+        |> put_session(:foo, "bar")
+        |> send_resp(200, "")
+
       assert conn |> get_session(:foo) == "bar"
     end
 
     test "it allows configuring session expiration" do
-      conn = conn(:get, "/")
-           |> sign_conn(expiration_in_seconds: 1)
-           |> put_session(:foo, "bar")
-           |> send_resp(200, "")
+      conn =
+        conn(:get, "/")
+        |> sign_conn(expiration_in_seconds: 1)
+        |> put_session(:foo, "bar")
+        |> send_resp(200, "")
 
       :timer.sleep(1000)
 
@@ -87,13 +92,15 @@ defmodule RedbirdTest do
     end
 
     test "it throws an exception after multiple attempts to store and fail" do
-      with_mock Redbird.Redis, [setex: fn(_) -> "FAIL" end] do
-        assert_raise Redbird.RedisError, ~r/Redbird was unable to store the session in redis. Redis Error: FAIL/, fn ->
-          conn(:get, "/")
-          |> sign_conn
-          |> put_session(:foo, "bar")
-          |> send_resp(200, "")
-        end
+      with_mock Redbird.Redis, setex: fn _ -> "FAIL" end do
+        assert_raise Redbird.RedisError,
+                     ~r/Redbird was unable to store the session in redis. Redis Error: FAIL/,
+                     fn ->
+                       conn(:get, "/")
+                       |> sign_conn
+                       |> put_session(:foo, "bar")
+                       |> send_resp(200, "")
+                     end
       end
     end
   end
@@ -120,8 +127,10 @@ defmodule RedbirdTest do
 
   test "user can set their own key namespace" do
     Application.put_env(:redbird, :key_namespace, "test_")
+
     Redbird.Redis.keys("test_*")
-    |> Redbird.Redis.del
+    |> Redbird.Redis.del()
+
     conn = %{}
     options = []
     key = REDIS.put(conn, nil, %{foo: :bar}, options)
