@@ -5,7 +5,7 @@ defmodule Redbird do
     import Supervisor.Spec
 
     children = [
-      worker(Redbird.Redis, [Redbird.Redis.pid()]),
+      worker(Redbird.Redis, [Redbird.Redis.pid()])
     ]
 
     opts = [strategy: :one_for_one, name: Redbird.Supervisor]

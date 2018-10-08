@@ -4,10 +4,10 @@ defmodule Redbird.Mixfile do
   def project do
     [
       app: :redbird,
-      build_embedded: Mix.env == :prod,
+      build_embedded: Mix.env() == :prod,
       deps: deps(),
       elixir: "~> 1.6",
-      start_permanent: Mix.env == :prod,
+      start_permanent: Mix.env() == :prod,
       version: "0.4.0",
       package: [
         maintainers: ["anellis", "drapergeek"],
@@ -15,22 +15,24 @@ defmodule Redbird.Mixfile do
         links: %{"GitHub" => "https://github.com/thoughtbot/redbird"}
       ],
       description: "A Redis adapter for Plug.Session",
-   ]
+      source_url: "https://github.com/thoughtbot/redbird",
+      docs: [extras: ["README.md"], main: "readme"]
+    ]
   end
 
   def application do
     [
       applications: [:logger],
-      mod: {Redbird, []},
+      mod: {Redbird, []}
     ]
   end
 
   defp deps do
     [
-      {:ex_doc, "~> 0.13", only: :dev},
-      {:mock, "~> 0.3.1", only: :test},
+      {:ex_doc, "~> 0.18.4", only: :dev},
+      {:mock, "~> 0.3", only: :test},
       {:exredis, "~> 0.2"},
-      {:plug, "~> 1.1"},
+      {:plug, "~> 1.1"}
     ]
   end
 end

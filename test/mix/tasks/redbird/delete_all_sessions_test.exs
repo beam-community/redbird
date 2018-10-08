@@ -3,9 +3,9 @@ defmodule Mix.Tasks.Redbird.DeleteAllSessionsTest do
   alias Plug.Session.REDIS
 
   setup do
-    on_exit fn ->
+    on_exit(fn ->
       Mix.Tasks.Redbird.DeleteAllSessions.run([])
-    end
+    end)
   end
 
   test "deletes all redbird session keys" do
