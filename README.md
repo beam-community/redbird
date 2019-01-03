@@ -27,7 +27,7 @@ It works great for Phoenix!
 
 ### Configure ExRedis
 
-For a all configuration options, please see the [ExRedis GitHub page]
+For all configuration options, please see the [ExRedis GitHub page]
 
 ```elixir
 config :exredis, url: System.get_env("REDIS_URL")
