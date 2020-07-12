@@ -9,15 +9,9 @@ It works great for Phoenix!
 
 ## Installation
 
-### Add Redbird to your application and dependency list.
+### Add Redbird to your dependency list.
 
 ```elixir
-  def applications do
-    [
-      :redbird,
-    ]
-  end
-
   def deps do
     [
       {:redbird, "~> 0.4.0"},
