@@ -1,6 +1,5 @@
 defmodule Plug.Session.REDIS do
   import Redbird.Redis
-  require IEx
 
   @moduledoc """
   Stores the session in a redis store.
@@ -26,16 +25,18 @@ defmodule Plug.Session.REDIS do
   end
 
   def put(_conn, namespaced_key, data, init_options) do
+    value = :erlang.term_to_binary(data)
+
     set_key_with_retries(
       namespaced_key,
-      data,
+      value,
       session_expiration(init_options),
       1
     )
   end
 
-  defp set_key_with_retries(key, data, seconds, counter) do
-    case setex(%{key: key, value: data, seconds: seconds}) do
+  defp set_key_with_retries(key, value, seconds, counter) do
+    case setex(%{key: key, value: value, seconds: seconds}) do
       :ok ->
         key
 
@@ -43,7 +44,7 @@ defmodule Plug.Session.REDIS do
         if counter > 5 do
           Redbird.RedisError.raise(error: response, key: key)
         else
-          set_key_with_retries(key, data, seconds, counter + 1)
+          set_key_with_retries(key, value, seconds, counter + 1)
         end
     end
   end
