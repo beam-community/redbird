@@ -4,19 +4,15 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.18.4">
-    <title>Redbird – redbird v0.4.0</title>
-    <link rel="stylesheet" href="dist/app-480ffdc169.css" />
-    
-    <script src="dist/sidebar_items-c5e36e6cab.js"></script>
-    
-    
-    
+    <meta name="generator" content="ExDoc v0.19.3">
+    <title>Redbird — redbird v0.5.0</title>
+    <link rel="stylesheet" href="dist/html-399e30b9b028e3059575.css" />
+    <script src="dist/sidebar_items-2ab7570b71.js"></script>
+    <script async src="dist/html-399e30b9b028e3059575.js"></script>
     
   </head>
   <body data-type="extras">
     <script>try { if(localStorage.getItem('night-mode')) document.body.className += ' night-mode'; } catch (e) { }</script>
-
 <div class="main">
 <button class="sidebar-button sidebar-toggle">
   <span class="icon-menu" aria-hidden="true"></span>
@@ -28,17 +24,14 @@
 </button>
 <section class="sidebar">
 
-  
   <a href="readme.html" class="sidebar-projectLink">
     <div class="sidebar-projectDetails">
       <h1 class="sidebar-projectName">
-        redbird
-      </h1>
+redbird      </h1>
       <h2 class="sidebar-projectVersion">
-        v0.4.0
+        v0.5.0
       </h2>
     </div>
-    
   </a>
 
   <form class="sidebar-search" action="search.html">
@@ -51,17 +44,11 @@
   <ul class="sidebar-listNav">
     <li><a id="extras-list" href="#full-list">Pages</a></li>
 
-    
       <li><a id="modules-list" href="#full-list">Modules</a></li>
-    
 
-    
       <li><a id="exceptions-list" href="#full-list">Exceptions</a></li>
-    
 
-    
       <li><a id="tasks-list" href="#full-list">Mix Tasks</a></li>
-    
   </ul>
   <div class="gradient"></div>
   <ul id="full-list" class="sidebar-fullList"></ul>
@@ -87,52 +74,55 @@ It works great for Phoenix!</p>
   Add Redbird to your application and dependency list.
 </h3>
 
-<pre><code class="elixir">  def applications do
-    [
-      :redbird,
-    ]
-  end
-
-  def deps do
-    [
-      {:redbird, &quot;~&gt; 0.4.0&quot;},
-    ]
-  end</code></pre>
-<h3 id="configure-exredis" class="section-heading">
-  <a href="#configure-exredis" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
-  Configure ExRedis
-</h3>
-
-<p>For a all configuration options, please see the <a href="https://github.com/artemeff/exredis" title="">ExRedis GitHub page</a></p>
-<pre><code class="elixir">config :exredis, url: System.get_env(&quot;REDIS_URL&quot;)</code></pre>
+<pre><code class="nohighlight makeup elixir"><span class="w">  </span><span class="kd">def</span><span class="w"> </span><span class="nf">deps</span><span class="w"> </span><span class="k" data-group-id="8431550622-1">do</span><span class="w">
+    </span><span class="p" data-group-id="8431550622-2">[</span><span class="w">
+      </span><span class="p" data-group-id="8431550622-3">{</span><span class="ss">:redbird</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;~&gt; 0.5.0&quot;</span><span class="p" data-group-id="8431550622-3">}</span><span class="p">,</span><span class="w">
+    </span><span class="p" data-group-id="8431550622-2">]</span><span class="w">
+  </span><span class="k" data-group-id="8431550622-1">end</span></code></pre>
 <h3 id="configure-plug" class="section-heading">
   <a href="#configure-plug" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
   Configure Plug
 </h3>
 
-<pre><code class="elixir">plug Plug.Session,
-  store: :redis,
-  key: &quot;_app_key&quot;,
-  expiration_in_seconds: 3000 # Optional - default is 30 days</code></pre>
+<pre><code class="nohighlight makeup elixir"><span class="n">plug</span><span class="w"> </span><span class="nc">Plug.Session</span><span class="p">,</span><span class="w">
+  </span><span class="ss">store</span><span class="p">:</span><span class="w"> </span><span class="ss">:redis</span><span class="p">,</span><span class="w">
+  </span><span class="ss">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;_app_key&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="ss">expiration_in_seconds</span><span class="p">:</span><span class="w"> </span><span class="mi">3000</span><span class="w"> </span><span class="c1"># Optional - default is 30 days</span></code></pre>
 <h3 id="configure-redbird" class="section-heading">
   <a href="#configure-redbird" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
   Configure Redbird
 </h3>
 
 <p>All redbird created keys are automatically namespaced with <code class="inline">redbird_session</code> by
-default. If you’d like to set your own custom, per app, configuration you can
+default. If you&#39;d like to set your own custom, per app, configuration you can
 set that in the config.</p>
-<pre><code class="elixir">config :redbird, key_namespace: &quot;my_app_&quot;</code></pre>
+<pre><code class="nohighlight makeup elixir"><span class="n">config</span><span class="w"> </span><span class="ss">:redbird</span><span class="p">,</span><span class="w"> </span><span class="ss">key_namespace</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;my_app_&quot;</span></code></pre>
+<h3 id="configure-redix" class="section-heading">
+  <a href="#configure-redix" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Configure Redix
+</h3>
+
+<p>Redbird uses <a href="https://hexdocs.pm/redix/Redix.html" title="">Redix</a> to communicate with Redis. You can pass configuration
+options as <code class="inline">redis_options</code>:</p>
+<pre><code class="nohighlight makeup elixir"><span class="n">config</span><span class="w"> </span><span class="ss">:redbird</span><span class="p">,</span><span class="w">
+  </span><span class="ss">redis_options</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1954874931-1">[</span><span class="w">
+    </span><span class="ss">host</span><span class="p">:</span><span class="w"> </span><span class="nc">System</span><span class="o">.</span><span class="n">get_env</span><span class="p" data-group-id="1954874931-2">(</span><span class="s">&quot;REDIS_HOST&quot;</span><span class="p" data-group-id="1954874931-2">)</span><span class="p">,</span><span class="w">
+    </span><span class="ss">port</span><span class="p">:</span><span class="w"> </span><span class="nc">System</span><span class="o">.</span><span class="n">get_env</span><span class="p" data-group-id="1954874931-3">(</span><span class="s">&quot;REDIS_PORT&quot;</span><span class="p" data-group-id="1954874931-3">)</span><span class="p">,</span><span class="w">
+    </span><span class="ss">password</span><span class="p">:</span><span class="w"> </span><span class="nc">System</span><span class="o">.</span><span class="n">get_env</span><span class="p" data-group-id="1954874931-4">(</span><span class="s">&quot;REDIS_PASSWORD&quot;</span><span class="p" data-group-id="1954874931-4">)</span><span class="p">,</span><span class="w">
+    </span><span class="ss">ssl</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="w">
+  </span><span class="p" data-group-id="1954874931-1">]</span></code></pre>
+<p>For a full list of configuration options, please see <a href="https://hexdocs.pm/redix/Redix.html#start_link/1-connection-options" title="">Redix&#39;s connection
+options</a>.</p>
 <h3 id="mix-tasks" class="section-heading">
   <a href="#mix-tasks" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
   Mix Tasks
 </h3>
 
-<p>This will give you access to the mix task <code class="inline">mix redbird.delete_all_sessions</code>, for
+<p>This will give you access to the mix task <a href="Mix.Tasks.Redbird.DeleteAllSessions.html"><code class="inline">mix redbird.delete_all_sessions</code></a>, for
 clearing all Redbird created user sessions from Redis. If you have not set up a
 per app <code class="inline">key_namespace</code> in the config this will clear ALL Redbird sessions on
 your server. Otherwise it will only clear the sessions created by the specific
-app you’re running it in.</p>
+app you&#39;re running it in.</p>
 <h2 id="contributing" class="section-heading">
   <a href="#contributing" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
   Contributing
@@ -145,7 +135,7 @@ Thank you, <a href="https://github.com/thoughtbot/redbird/graphs/contributors" t
   License
 </h2>
 
-<p>Redbird is Copyright (c) 2017 thoughtbot, inc.
+<p>Redbird is Copyright (c) 2017-2020 thoughtbot, inc.
 It is free software, and may be redistributed
 under the terms specified in the <a href="/LICENSE" title="">LICENSE</a> file.</p>
 <h2 id="about" class="section-heading">
@@ -159,16 +149,15 @@ The names and logos for thoughtbot are trademarks of thoughtbot, inc.</p>
 <p>We love open source software, Elixir, and Phoenix. See <a href="https://thoughtbot.com/services/elixir-phoenix?utm_source=github" title="">our other Elixir
 projects</a>, or <a href="https://thoughtbot.com?utm_source=github" title="">hire our Elixir Phoenix development team</a>
 to design, develop, and grow your product.</p>
-
       <footer class="footer">
         <p>
           <span class="line">
             Built using
-            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.18.4),
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener">ExDoc</a> (v0.19.3),
           </span>
           <span class="line">
             designed by
-            <a href="https://twitter.com/dignifiedquire" target="_blank" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+            <a href="https://twitter.com/dignifiedquire" target="_blank" rel="noopener" title="@dignifiedquire">Friedel Ziegelmayer</a>.
             </span>
         </p>
       </footer>
@@ -176,10 +165,6 @@ to design, develop, and grow your product.</p>
   </div>
 </section>
 </div>
-  <script src="dist/app-9bd040e5e5.js"></script>
-  
-  
-  
   
   </body>
 </html>
