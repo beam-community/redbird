@@ -1,5 +1,6 @@
 defmodule Redbird.Mixfile do
   use Mix.Project
+  @version "0.4.0"
 
   def project do
     [
@@ -8,7 +9,7 @@ defmodule Redbird.Mixfile do
       deps: deps(),
       elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
-      version: "0.4.0",
+      version: @version,
       package: [
         maintainers: ["anellis", "drapergeek"],
         licenses: ["MIT"],

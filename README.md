@@ -12,12 +12,6 @@ It works great for Phoenix!
 ### Add Redbird to your application and dependency list.
 
 ```elixir
-  def applications do
-    [
-      :redbird,
-    ]
-  end
-
   def deps do
     [
       {:redbird, "~> 0.4.0"},
@@ -83,7 +77,7 @@ Thank you, [contributors]!
 
 ## License
 
-Redbird is Copyright (c) 2017 thoughtbot, inc.
+Redbird is Copyright (c) 2017-2020 thoughtbot, inc.
 It is free software, and may be redistributed
 under the terms specified in the [LICENSE] file.
 
