@@ -6,7 +6,7 @@ defmodule Redbird.Mixfile do
       app: :redbird,
       build_embedded: Mix.env() == :prod,
       deps: deps(),
-      elixir: "~> 1.6",
+      elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
       version: "0.4.0",
       package: [
@@ -22,7 +22,7 @@ defmodule Redbird.Mixfile do
 
   def application do
     [
-      applications: [:logger],
+      extra_applications: [:logger],
       mod: {Redbird, []}
     ]
   end
