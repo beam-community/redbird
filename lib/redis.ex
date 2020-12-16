@@ -1,24 +1,45 @@
 defmodule Redbird.Redis do
-  def start_link(name) do
-    {:ok, client} = Exredis.start_link()
-    true = Process.register(client, name)
-    {:ok, client}
+  def child_spec(args) do
+    %{
+      id: Redbird.Redis,
+      start: {Redbird.Redis, :start_link, [args]}
+    }
   end
 
-  def get(value) do
-    Exredis.Api.get(pid(), value)
+  def start_link(opts) do
+    Redix.start_link(opts)
+  end
+
+  def get(key) do
+    pid()
+    |> Redix.command!(["GET", key])
+    |> case do
+      nil -> :undefined
+      response -> response
+    end
   end
 
   def setex(%{key: key, value: value, seconds: seconds}) do
-    Exredis.Api.setex(pid(), key, seconds, value)
+    pid()
+    |> Redix.command(["SETEX", key, seconds, value])
+    |> case do
+      {:ok, "OK"} -> :ok
+      {:error, error} -> error
+    end
   end
 
-  def del(key) do
-    Exredis.Api.del(pid(), key)
+  def del(keys) when is_list(keys) do
+    pid()
+    |> Redix.noreply_command(["DEL" | keys])
+  end
+
+  def del(key) when is_binary(key) do
+    del([key])
   end
 
   def keys(pattern) do
-    Exredis.Api.keys(pattern)
+    pid()
+    |> Redix.command!(["KEYS", pattern])
   end
 
   def pid do

@@ -25,16 +25,6 @@ It works great for Phoenix!
   end
 ```
 
-### Configure ExRedis
-
-For all configuration options, please see the [ExRedis GitHub page]
-
-```elixir
-config :exredis, url: System.get_env("REDIS_URL")
-```
-
-  [ExRedis GitHub page]: https://github.com/artemeff/exredis
-
 ### Configure Plug
 
 ```elixir
@@ -53,6 +43,27 @@ set that in the config.
 ```elixir
 config :redbird, key_namespace: "my_app_"
 ```
+
+### Configure Redix
+
+Redbird uses [Redix] to communicate with Redis. You can pass configuration
+options as `redis_options`:
+
+```elixir
+config :redbird,
+  redis_options: [
+    host: System.get_env("REDIS_HOST"),
+    port: System.get_env("REDIS_PORT"),
+    password: System.get_env("REDIS_PASSWORD"),
+    ssl: true
+  ]
+```
+
+For a full list of configuration options, please see [Redix's connection
+options].
+
+  [Redix]: https://hexdocs.pm/redix/Redix.html
+  [Redix's connection options]: https://hexdocs.pm/redix/Redix.html#start_link/1-connection-options
 
 ### Mix Tasks
 
