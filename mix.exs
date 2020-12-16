@@ -29,7 +29,7 @@ defmodule Redbird.Mixfile do
 
   defp deps do
     [
-      {:ex_doc, "~> 0.19.1", only: :dev},
+      {:ex_doc, "~> 0.23.0", only: :dev},
       {:mock, "~> 0.3", only: :test},
       {:redix, "~> 1.0.0"},
       {:plug, "~> 1.1"}
