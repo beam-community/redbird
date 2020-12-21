@@ -2,10 +2,10 @@ defmodule Redbird do
   use Application
 
   def start(_type, _args) do
-    redis_options = Application.get_env(:redbird, :redis_options, [])
+    redis_options = Redbird.Config.redis_options(name: Redbird.Redis.pid())
 
     children = [
-      {Redbird.Redis, [{:name, Redbird.Redis.pid()} | redis_options]}
+      {Redix, redis_options}
     ]
 
     opts = [strategy: :one_for_one, name: Redbird.Supervisor]

@@ -1,15 +1,4 @@
 defmodule Redbird.Redis do
-  def child_spec(args) do
-    %{
-      id: Redbird.Redis,
-      start: {Redbird.Redis, :start_link, [args]}
-    }
-  end
-
-  def start_link(opts) do
-    Redix.start_link(opts)
-  end
-
   def get(key) do
     pid()
     |> Redix.command!(["GET", key])
