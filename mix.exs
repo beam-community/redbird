@@ -1,13 +1,13 @@
 defmodule Redbird.Mixfile do
   use Mix.Project
-  @version "0.5.0"
+  @version "0.6.0"
 
   def project do
     [
       app: :redbird,
       build_embedded: Mix.env() == :prod,
       deps: deps(),
-      elixir: "~> 1.7",
+      elixir: "~> 1.9",
       start_permanent: Mix.env() == :prod,
       version: @version,
       package: [
@@ -30,10 +30,10 @@ defmodule Redbird.Mixfile do
 
   defp deps do
     [
-      {:ex_doc, "~> 0.19.1", only: :dev},
+      {:ex_doc, "~> 0.19", only: :dev},
       {:mock, "~> 0.3", only: :test},
       {:redix, "~> 1.0.0"},
-      {:plug, "~> 1.1"}
+      {:plug, "~> 1.11"}
     ]
   end
 end
