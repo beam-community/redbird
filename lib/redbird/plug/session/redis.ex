@@ -1,5 +1,7 @@
 defmodule Plug.Session.REDIS do
   import Redbird.Redis
+  alias Redbird.Crypto
+  alias Redbird.Key
 
   @moduledoc """
   Stores the session in a redis store.
@@ -13,26 +15,30 @@ defmodule Plug.Session.REDIS do
     opts
   end
 
-  def get(_conn, namespaced_key, _init_options) do
-    case get(namespaced_key) do
-      :undefined -> {nil, %{}}
-      value -> {namespaced_key, value |> :erlang.binary_to_term()}
+  def get(conn, prospective_key, _init_options) do
+    with {:ok, key, _} <- Key.extract_key(prospective_key),
+         {:ok, _verified_key} <- Key.verify(key, conn),
+         value when is_binary(value) <- get(prospective_key) do
+      {prospective_key, Crypto.safe_binary_to_term(value)}
+    else
+      _ -> {nil, %{}}
     end
   end
 
   def put(conn, nil, data, init_options) do
-    put(conn, add_namespace(generate_random_key()), data, init_options)
+    put(conn, Key.generate(), data, init_options)
   end
 
-  def put(_conn, namespaced_key, data, init_options) do
-    value = :erlang.term_to_binary(data)
+  def put(conn, key, data, init_options) do
+    key
+    |> Key.sign_key(conn)
+    |> set_key_with_retries(:erlang.term_to_binary(data), session_expiration(init_options), 1)
+  end
 
-    set_key_with_retries(
-      namespaced_key,
-      value,
-      session_expiration(init_options),
-      1
-    )
+  def delete(conn, redis_key, _init_options) do
+    if Key.deletable?(redis_key, conn), do: del(redis_key)
+
+    :ok
   end
 
   defp set_key_with_retries(key, value, seconds, counter) do
@@ -47,24 +53,6 @@ defmodule Plug.Session.REDIS do
           set_key_with_retries(key, value, seconds, counter + 1)
         end
     end
-  end
-
-  def delete(_conn, redis_key, _init_options) do
-    del(redis_key)
-    :ok
-  end
-
-  defp add_namespace(key) do
-    namespace() <> key
-  end
-
-  @default_namespace "redbird_session_"
-  def namespace do
-    Application.get_env(:redbird, :key_namespace, @default_namespace)
-  end
-
-  defp generate_random_key do
-    :crypto.strong_rand_bytes(96) |> Base.encode64()
   end
 
   defp session_expiration(opts) do

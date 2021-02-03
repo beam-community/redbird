@@ -1,6 +1,6 @@
 defmodule Redbird.Mixfile do
   use Mix.Project
-  @version "0.6.0"
+  @version "0.7.0"
 
   def project do
     [
@@ -8,6 +8,7 @@ defmodule Redbird.Mixfile do
       build_embedded: Mix.env() == :prod,
       deps: deps(),
       elixir: "~> 1.9",
+      elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       version: @version,
       package: [
@@ -36,4 +37,10 @@ defmodule Redbird.Mixfile do
       {:plug, "~> 1.11"}
     ]
   end
+
+  defp elixirc_paths(:test),
+    do: ["lib", "test/support"]
+
+  defp elixirc_paths(_),
+    do: ["lib"]
 end
