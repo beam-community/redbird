@@ -23,7 +23,7 @@ defmodule Redbird.Mixfile do
 
   def application do
     [
-      extra_applications: [:logger],
+      extra_applications: [:logger, :iex],
       mod: {Redbird, []}
     ]
   end
@@ -33,7 +33,8 @@ defmodule Redbird.Mixfile do
       {:ex_doc, "~> 0.19", only: :dev},
       {:mock, "~> 0.3", only: :test},
       {:redix, "~> 1.0.0"},
-      {:plug, "~> 1.11"}
+      {:plug, "~> 1.11"},
+      {:poison, "~> 3.1"}
     ]
   end
 end
