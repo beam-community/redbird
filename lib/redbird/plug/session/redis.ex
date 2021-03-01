@@ -16,7 +16,7 @@ defmodule Plug.Session.REDIS do
   def get(_conn, namespaced_key, _init_options) do
     case get(namespaced_key) do
       :undefined -> {nil, %{}}
-      value -> {namespaced_key, value |> :erlang.binary_to_term()}
+      value -> {namespaced_key, value |> Base.decode64!(ignore: :whitespace) |> Poison.decode!()}
     end
   end
 
@@ -25,7 +25,10 @@ defmodule Plug.Session.REDIS do
   end
 
   def put(_conn, namespaced_key, data, init_options) do
-    value = :erlang.term_to_binary(data)
+    value =
+      data
+      |> Poison.encode!()
+      |> Base.encode64()
 
     set_key_with_retries(
       namespaced_key,
