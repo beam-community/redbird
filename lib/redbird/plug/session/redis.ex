@@ -1,7 +1,6 @@
 defmodule Plug.Session.REDIS do
   import Redbird.Redis
-  alias Redbird.Crypto
-  alias Redbird.Key
+  alias Redbird.{Key, Value}
 
   @moduledoc """
   Stores the session in a redis store.
@@ -19,7 +18,7 @@ defmodule Plug.Session.REDIS do
     with {:ok, key, _} <- Key.extract_key(prospective_key),
          {:ok, _verified_key} <- Key.verify(key, conn),
          value when is_binary(value) <- get(prospective_key) do
-      {prospective_key, Crypto.safe_binary_to_term(value)}
+      {prospective_key, Value.deserialize(value)}
     else
       _ -> {nil, %{}}
     end
@@ -32,7 +31,7 @@ defmodule Plug.Session.REDIS do
   def put(conn, key, data, init_options) do
     key
     |> Key.sign_key(conn)
-    |> set_key_with_retries(:erlang.term_to_binary(data), session_expiration(init_options), 1)
+    |> set_key_with_retries(Value.serialize(data), session_expiration(init_options), 1)
   end
 
   def delete(conn, redis_key, _init_options) do
