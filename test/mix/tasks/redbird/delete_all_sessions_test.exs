@@ -1,5 +1,5 @@
 defmodule Mix.Tasks.Redbird.DeleteAllSessionsTest do
-  use ExUnit.Case
+  use Redbird.ConnCase
   alias Plug.Session.REDIS
 
   setup do
@@ -9,7 +9,7 @@ defmodule Mix.Tasks.Redbird.DeleteAllSessionsTest do
   end
 
   test "deletes all redbird session keys" do
-    conn = %{}
+    conn = :get |> conn("/") |> sign_conn()
     options = []
     key = REDIS.put(conn, nil, %{foo: :bar}, options)
 
@@ -20,7 +20,7 @@ defmodule Mix.Tasks.Redbird.DeleteAllSessionsTest do
 
   test "deletes user defined namespaced session keys" do
     Application.put_env(:redbird, :key_namespace, "test_")
-    conn = %{}
+    conn = :get |> conn("/") |> sign_conn()
     options = []
     key = REDIS.put(conn, nil, %{foo: :bar}, options)
 
