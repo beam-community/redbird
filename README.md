@@ -14,7 +14,7 @@ It works great for Phoenix!
 ```elixir
   def deps do
     [
-      {:redbird, "~> 0.6.0"},
+      {:redbird, "~> 0.7.0"},
     ]
   end
 ```
