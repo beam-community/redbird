@@ -102,34 +102,34 @@ defmodule Redbird.KeyTest do
     end
   end
 
-  describe "deletable?/2" do
-    test "verifiable keys with a namespace are deletable" do
+  describe "accessible?/2" do
+    test "verifiable keys with a namespace are accessible" do
       conn = Redbird.ConnCase.signed_conn()
       generated_key = Key.generate(Key.namespace())
       signed_key = Key.sign_key(generated_key, conn)
 
-      actual = Key.deletable?(signed_key, conn)
+      actual = Key.accessible?(signed_key, conn)
 
       assert actual == true
     end
 
-    test "verifiable keys without a namespace are deletable" do
+    test "verifiable keys without a namespace are accessible" do
       conn = Redbird.ConnCase.signed_conn()
       generated_key = Key.generate("")
       signed_key = Key.sign_key(generated_key, conn)
 
-      actual = Key.deletable?(signed_key, conn)
+      actual = Key.accessible?(signed_key, conn)
 
       assert actual == true
     end
 
-    test "non-verifiable keys are not-deletable" do
+    test "non-verifiable keys are not-accessible" do
       conn = Redbird.ConnCase.signed_conn()
       generated_key = Key.generate("")
       signed_key = Key.sign_key(generated_key, conn)
       tampered_key = signed_key <> "sneaky"
 
-      actual = Key.deletable?(tampered_key, conn)
+      actual = Key.accessible?(tampered_key, conn)
 
       assert actual == false
     end

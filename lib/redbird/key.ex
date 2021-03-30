@@ -15,7 +15,7 @@ defmodule Redbird.Key do
     Crypto.verify_key(key, conn)
   end
 
-  def deletable?(key, conn) do
+  def accessible?(key, conn) do
     with {:ok, key, _} <- extract_key(key),
          {:ok, _verified_key} <- Crypto.verify_key(key, conn) do
       true

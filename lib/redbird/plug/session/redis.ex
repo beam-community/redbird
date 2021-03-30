@@ -15,8 +15,7 @@ defmodule Plug.Session.REDIS do
   end
 
   def get(conn, prospective_key, _init_options) do
-    with {:ok, key, _} <- Key.extract_key(prospective_key),
-         {:ok, _verified_key} <- Key.verify(key, conn),
+    with true <- Key.accessible?(prospective_key, conn),
          value when is_binary(value) <- get(prospective_key) do
       {prospective_key, Value.deserialize(value)}
     else
@@ -25,17 +24,24 @@ defmodule Plug.Session.REDIS do
   end
 
   def put(conn, nil, data, init_options) do
-    put(conn, Key.generate(), data, init_options)
+    key =
+      Key.generate()
+      |> Key.sign_key(conn)
+
+    put(conn, key, data, init_options)
   end
 
   def put(conn, key, data, init_options) do
-    key
-    |> Key.sign_key(conn)
-    |> set_key_with_retries(Value.serialize(data), session_expiration(init_options), 1)
+    if Key.accessible?(key, conn) do
+      key
+      |> set_key_with_retries(Value.serialize(data), session_expiration(init_options), 1)
+    else
+      key
+    end
   end
 
   def delete(conn, redis_key, _init_options) do
-    if Key.deletable?(redis_key, conn), do: del(redis_key)
+    if Key.accessible?(redis_key, conn), do: del(redis_key)
 
     :ok
   end
