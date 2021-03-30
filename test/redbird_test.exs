@@ -58,10 +58,12 @@ defmodule RedbirdTest do
     end
 
     test "it allows configuring session expiration" do
+      secret = generate_secret()
+
       conn =
         :get
         |> conn("/")
-        |> sign_conn(expiration_in_seconds: 1)
+        |> sign_conn_with(secret, expiration_in_seconds: 1)
         |> put_session(:foo, "bar")
         |> send_resp(200, "")
 
@@ -71,7 +73,7 @@ defmodule RedbirdTest do
         :get
         |> conn("/")
         |> recycle_cookies(conn)
-        |> sign_conn()
+        |> sign_conn_with(secret)
         |> send_resp(200, "")
 
       assert conn |> get_session(:foo) |> is_nil
