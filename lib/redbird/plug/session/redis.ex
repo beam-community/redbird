@@ -14,8 +14,10 @@ defmodule Plug.Session.REDIS do
     opts
   end
 
-  def get(conn, prospective_key, _init_options) do
-    with true <- Key.accessible?(prospective_key, conn),
+  def get(conn, prospective_key, init_options) do
+    max_age = session_expiration(init_options)
+
+    with true <- Key.accessible?(prospective_key, conn, max_age: max_age),
          value when is_binary(value) <- get(prospective_key) do
       {prospective_key, Value.deserialize(value)}
     else
@@ -32,16 +34,20 @@ defmodule Plug.Session.REDIS do
   end
 
   def put(conn, key, data, init_options) do
-    if Key.accessible?(key, conn) do
+    max_age = session_expiration(init_options)
+
+    if Key.accessible?(key, conn, max_age: max_age) do
       key
-      |> set_key_with_retries(Value.serialize(data), session_expiration(init_options), 1)
+      |> set_key_with_retries(Value.serialize(data), max_age, 1)
     else
       key
     end
   end
 
-  def delete(conn, redis_key, _init_options) do
-    if Key.accessible?(redis_key, conn), do: del(redis_key)
+  def delete(conn, redis_key, init_options) do
+    max_age = session_expiration(init_options)
+
+    if Key.accessible?(redis_key, conn, max_age: max_age), do: del(redis_key)
 
     :ok
   end

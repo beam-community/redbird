@@ -11,13 +11,9 @@ defmodule Redbird.Key do
     to_string(namespace) <> Crypto.sign_key(key, conn)
   end
 
-  def verify(key, conn) do
-    Crypto.verify_key(key, conn)
-  end
-
-  def accessible?(key, conn) do
+  def accessible?(key, conn, opts \\ []) do
     with {:ok, key, _} <- extract_key(key),
-         {:ok, _verified_key} <- Crypto.verify_key(key, conn) do
+         {:ok, _verified_key} <- Crypto.verify_key(key, conn, opts) do
       true
     else
       _ -> false
