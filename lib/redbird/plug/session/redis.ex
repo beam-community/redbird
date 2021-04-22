@@ -40,7 +40,7 @@ defmodule Plug.Session.REDIS do
       key
       |> set_key_with_retries(Value.serialize(data), max_age, 1)
     else
-      key
+      put(conn, nil, data, init_options)
     end
   end
 
