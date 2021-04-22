@@ -57,6 +57,29 @@ defmodule RedbirdTest do
       assert get_session(conn, :foo) == "bar"
     end
 
+    test "it reuses the session key between requests" do
+      secret = generate_secret()
+
+      conn =
+        :get
+        |> conn("/")
+        |> sign_conn_with(secret)
+        |> put_session(:foo, "bar")
+        |> send_resp(200, "")
+
+      session_key = conn.resp_cookies["_session_key"].value
+
+      conn =
+        :get
+        |> conn("/")
+        |> recycle_cookies(conn)
+        |> sign_conn_with(secret)
+        |> put_session(:foo, "baz")
+        |> send_resp(200, "")
+
+      assert conn.resp_cookies["_session_key"].value == session_key
+    end
+
     test "it allows configuring session expiration" do
       secret = generate_secret()
 
