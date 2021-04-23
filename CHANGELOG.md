@@ -7,6 +7,19 @@ complete changelog, see the git history for each version via the version links.
 
 [hex package page]: https://hex.pm/packages/redbird
 
+## [0.7.1]
+
+### Fixes
+
+- Avoid resetting the session key with each call to put/4 ([#72]).
+  - For a description of issue and fix, see commit [5dc6bc48].
+- Fix the broken session expiration test ([#73]).
+
+[#72]: https://github.com/thoughtbot/redbird/pull/72
+[#73]: https://github.com/thoughtbot/redbird/pull/73
+[5dc6bc48]: https://github.com/thoughtbot/redbird/commit/5dc6bc486096ffbf896c6ced6b9941bfc4c43ea0
+[0.7.1]: https://github.com/thoughtbot/redbird/compare/v0.7.0...v0.7.1
+
 ## [0.7.0]
 
 ### Breaking
