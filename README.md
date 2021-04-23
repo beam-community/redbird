@@ -9,7 +9,7 @@ It works great for Phoenix!
 
 ## Installation
 
-### Add Redbird to your application and dependency list.
+### Add Redbird to your dependency list.
 
 ```elixir
   def deps do
