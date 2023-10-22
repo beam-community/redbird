@@ -31,10 +31,10 @@ defmodule Redbird.Mixfile do
 
   defp deps do
     [
-      {:ex_doc, "~> 0.19", only: :dev},
-      {:mock, "~> 0.3", only: :test},
-      {:redix, "~> 1.1.3"},
-      {:plug, "~> 1.11"}
+      {:ex_doc, "~> 0.30.9", only: :dev},
+      {:mock, "~> 0.3.8", only: :test},
+      {:redix, "~> 1.3.0"},
+      {:plug, "~> 1.15"}
     ]
   end
 
