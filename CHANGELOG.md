@@ -7,6 +7,13 @@ complete changelog, see the git history for each version via the version links.
 
 [hex package page]: https://hex.pm/packages/redbird
 
+## [0.7.2](https://github.com/beam-community/redbird/compare/v0.7.1...v0.7.2) (2025-06-25)
+
+
+### Bug Fixes
+
+* Failing tests and missing import ([f9d71bd](https://github.com/beam-community/redbird/commit/f9d71bdbe1e98bc3057a4274f7ee032cca77d873))
+
 ## [0.7.1]
 
 ### Fixes
