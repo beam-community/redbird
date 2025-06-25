@@ -13,7 +13,8 @@ defmodule Redbird.Mixfile do
       version: "0.7.1",
       package: package(),
       description: "A Redis adapter for Plug.Session",
-      source_url: "https://github.com/beam-community/redbird"
+      source_url: "https://github.com/beam-community/redbird",
+      dialyzer: [plt_add_apps: [:mix]]
     ]
   end
 
