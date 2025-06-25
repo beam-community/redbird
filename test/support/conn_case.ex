@@ -27,7 +27,8 @@ defmodule Redbird.ConnCase do
   end
 
   def generate_secret(length \\ 10) do
-    :crypto.strong_rand_bytes(length)
+    length
+    |> :crypto.strong_rand_bytes()
     |> Base.url_encode64()
     |> binary_part(0, length)
   end

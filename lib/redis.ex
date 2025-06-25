@@ -15,26 +15,25 @@ defmodule Redbird.Redis do
   end
 
   def get(key) do
-    pid()
-    |> Redix.command!(["GET", key])
-    |> case do
+    result = Redix.command!(pid(), ["GET", key])
+
+    case result do
       nil -> :undefined
       response -> response
     end
   end
 
   def setex(%{key: key, value: value, seconds: seconds}) do
-    pid()
-    |> Redix.command(["SETEX", key, seconds, value])
-    |> case do
+    result = Redix.command(pid(), ["SETEX", key, seconds, value])
+
+    case result do
       {:ok, "OK"} -> :ok
       {:error, error} -> error
     end
   end
 
   def del(keys) when is_list(keys) do
-    pid()
-    |> Redix.noreply_command(["DEL" | keys])
+    Redix.noreply_command(pid(), ["DEL" | keys])
   end
 
   def del(key) when is_binary(key) do
@@ -42,8 +41,7 @@ defmodule Redbird.Redis do
   end
 
   def keys(pattern) do
-    pid()
-    |> Redix.command!(["KEYS", pattern])
+    Redix.command!(pid(), ["KEYS", pattern])
   end
 
   def pid do

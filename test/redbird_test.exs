@@ -10,7 +10,8 @@ defmodule RedbirdTest do
 
   setup do
     on_exit(fn ->
-      Redbird.Redis.keys(Redbird.Key.namespace() <> "*")
+      Redbird.Key.namespace() <> "*"
+      |> Redbird.Redis.keys()
       |> Redbird.Redis.del()
     end)
   end

@@ -1,6 +1,8 @@
 defmodule Mix.Tasks.Redbird.DeleteAllSessionsTest do
   use Redbird.ConnCase
+
   alias Plug.Session.REDIS
+  alias Redbird.Tasks.Redbird.DeleteAllSessions
 
   setup do
     on_exit(fn ->
@@ -13,7 +15,7 @@ defmodule Mix.Tasks.Redbird.DeleteAllSessionsTest do
     options = []
     key = REDIS.put(conn, nil, %{foo: :bar}, options)
 
-    Mix.Tasks.Redbird.DeleteAllSessions.run([])
+    DeleteAllSessions.run([])
 
     assert {nil, %{}} = REDIS.get(conn, key, options)
   end
@@ -24,7 +26,7 @@ defmodule Mix.Tasks.Redbird.DeleteAllSessionsTest do
     options = []
     key = REDIS.put(conn, nil, %{foo: :bar}, options)
 
-    Mix.Tasks.Redbird.DeleteAllSessions.run([])
+    DeleteAllSessions.run([])
 
     assert {nil, %{}} = REDIS.get(conn, key, options)
     Application.delete_env(:redbird, :key_namespace)

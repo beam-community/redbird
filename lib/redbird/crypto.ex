@@ -3,6 +3,8 @@ defmodule Redbird.Crypto do
   Crypto helper functions for Redbird.
   """
 
+  @default_signing_salt "redbird"
+
   def sign_key(key, conn, opts \\ []) do
     case key_base(conn) do
       {:ok, base} -> Plug.Crypto.sign(base, signing_salt(), key, opts)
@@ -26,7 +28,6 @@ defmodule Redbird.Crypto do
     (base && {:ok, base}) || {:error, :key_base_not_found}
   end
 
-  @default_signing_salt "redbird"
   defp signing_salt do
     Application.get_env(:redbird, :signing_salt, @default_signing_salt)
   end

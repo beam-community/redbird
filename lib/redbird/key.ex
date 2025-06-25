@@ -5,6 +5,8 @@ defmodule Redbird.Key do
 
   alias Redbird.Crypto
 
+  @default_namespace "redbird_session_"
+
   @default_bytes_count 96
   def generate(namespace \\ namespace(), bytes_count \\ @default_bytes_count) do
     namespace <> (bytes_count |> :crypto.strong_rand_bytes() |> Base.encode64())
@@ -35,7 +37,6 @@ defmodule Redbird.Key do
     {:error, :unusable_key, nil}
   end
 
-  @default_namespace "redbird_session_"
   def namespace do
     Application.get_env(:redbird, :key_namespace, @default_namespace)
   end

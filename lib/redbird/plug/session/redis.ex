@@ -1,12 +1,12 @@
 defmodule Plug.Session.REDIS do
-  import Redbird.Redis
-  alias Redbird.{Key, Value}
-
   @moduledoc """
   Stores the session in a redis store.
   """
-
   @behaviour Plug.Session.Store
+
+  import Redbird.Redis
+
+  alias Redbird.{Key, Value}
 
   @max_session_time 86_164 * 30
 
@@ -26,9 +26,7 @@ defmodule Plug.Session.REDIS do
   end
 
   def put(conn, nil, data, init_options) do
-    key =
-      Key.generate()
-      |> Key.sign_key(conn)
+    key = Key.sign_key(Key.generate(), conn)
 
     put(conn, key, data, init_options)
   end
@@ -37,8 +35,7 @@ defmodule Plug.Session.REDIS do
     max_age = session_expiration(init_options)
 
     if Key.accessible?(key, conn, max_age: max_age) do
-      key
-      |> set_key_with_retries(Value.serialize(data), max_age, 1)
+      set_key_with_retries(key, Value.serialize(data), max_age, 1)
     else
       put(conn, nil, data, init_options)
     end
