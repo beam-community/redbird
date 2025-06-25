@@ -1,6 +1,9 @@
 defmodule RedbirdTest do
   use Redbird.ConnCase
+
   import Mock
+  import Plug.Conn
+
   alias Plug.Session.REDIS
 
   setup_all do
