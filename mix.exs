@@ -33,7 +33,8 @@ defmodule Redbird.Mixfile do
       # Dev and Test dependencies
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
-      {:ex_doc, "~> 0.30", only: :dev}
+      {:ex_doc, "~> 0.30", only: :dev},
+      {:mock, "~> 0.3", only: :test}
     ]
   end
 
