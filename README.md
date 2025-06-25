@@ -70,7 +70,7 @@ Before opening a pull request, please open an issue first.
 
 ```
 git clone https://github.com/beam-community/redbird.git
-cd ex_machina
+cd redbird
 mix deps.get
 mix test
 ```
