@@ -1,8 +1,8 @@
 defmodule Mix.Tasks.Redbird.DeleteAllSessionsTest do
   use Redbird.ConnCase
 
-  alias Plug.Session.REDIS
   alias Mix.Tasks.Redbird.DeleteAllSessions
+  alias Plug.Session.REDIS
 
   setup do
     on_exit(fn ->
