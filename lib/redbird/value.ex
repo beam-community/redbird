@@ -1,4 +1,8 @@
 defmodule Redbird.Value do
+  @moduledoc """
+  Value helper functions for Redbird.
+  """
+
   alias Redbird.Crypto
 
   def serialize(data) do

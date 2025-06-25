@@ -1,4 +1,8 @@
 defmodule Redbird.Key do
+  @moduledoc """
+  Key helper functions for Redbird.
+  """
+
   alias Redbird.Crypto
 
   @default_bytes_count 96

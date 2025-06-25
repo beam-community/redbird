@@ -1,9 +1,10 @@
 defmodule Redbird.ConnCase do
+  @moduledoc false
   use ExUnit.CaseTemplate
 
   using do
     quote do
-      use Plug.Test
+      import Plug.Test
       import Redbird.ConnCase
     end
   end

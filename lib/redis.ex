@@ -1,4 +1,8 @@
 defmodule Redbird.Redis do
+  @moduledoc """
+  Redis helper functions for Redbird.
+  """
+
   def child_spec(args) do
     %{
       id: Redbird.Redis,

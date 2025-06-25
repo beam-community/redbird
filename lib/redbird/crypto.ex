@@ -1,4 +1,8 @@
 defmodule Redbird.Crypto do
+  @moduledoc """
+  Crypto helper functions for Redbird.
+  """
+
   def sign_key(key, conn, opts \\ []) do
     case key_base(conn) do
       {:ok, base} -> Plug.Crypto.sign(base, signing_salt(), key, opts)
