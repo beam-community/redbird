@@ -88,11 +88,14 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      MIX_ENV: test
+
     services:
       valkey:
         image: valkey/valkey:8.1
         ports:
-          - "6379:6379"
+          - 6379:6379
         volumes:
           - valkey_data:/data
         options: >-
@@ -100,9 +103,6 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-
-    env:
-      MIX_ENV: test
 
     steps:
       - name: Checkout
@@ -131,3 +131,4 @@ jobs:
             otp: 27
           - elixir: 1.18
             otp: 27
+
