@@ -1,10 +1,7 @@
-[![CircleCI](https://circleci.com/gh/thoughtbot/redbird.svg?style=svg&circle-token=ffeb06ba85ab9e15f98730027745be851d647b61&branch=master)](https://circleci.com/gh/thoughtbot/redbird)
-
 # Redbird
 
-**Redbird is part of the [thoughtbot Elixir family][elixir-phoenix] of projects.**
-
 Redbird is a Redis session adapter for Plug.Session.
+
 It works great for Phoenix!
 
 ## Installation
@@ -69,30 +66,21 @@ app you're running it in.
 
 ## Contributing
 
-See the [CONTRIBUTING] document.
-Thank you, [contributors]!
+Before opening a pull request, please open an issue first.
 
-  [CONTRIBUTING]: CONTRIBUTING.md
-  [contributors]: https://github.com/thoughtbot/redbird/graphs/contributors
+```
+git clone https://github.com/beam-community/redbird.git
+cd ex_machina
+mix deps.get
+mix test
+```
+
+Once you've made your additions and mix test passes, go ahead and open a PR!
 
 ## License
 
-Redbird is Copyright (c) 2017-2020 thoughtbot, inc.
+Redbird is Copyright (c) 2025 BEAM Community.
 It is free software, and may be redistributed
 under the terms specified in the [LICENSE] file.
 
   [LICENSE]: /LICENSE
-
-## About
-
-![thoughtbot](http://presskit.thoughtbot.com/images/thoughtbot-logo-for-readmes.svg)
-
-Redbird is maintained and funded by thoughtbot, inc.
-The names and logos for thoughtbot are trademarks of thoughtbot, inc.
-
-We love open source software, Elixir, and Phoenix. See [our other Elixir
-projects][elixir-phoenix], or [hire our Elixir Phoenix development team][hire]
-to design, develop, and grow your product.
-
-  [elixir-phoenix]: https://thoughtbot.com/services/elixir-phoenix?utm_source=github
-  [hire]: https://thoughtbot.com?utm_source=github
