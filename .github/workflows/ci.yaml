@@ -88,6 +88,10 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      valkey:
+        image: valkey/valkey:latest
+
     env:
       MIX_ENV: test
 
