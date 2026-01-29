@@ -10,7 +10,7 @@ defmodule Redbird.Mixfile do
       elixir: "~> 1.9",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
-      version: "0.7.2",
+      version: "0.7.3",
       package: package(),
       description: "A Redis adapter for Plug.Session",
       source_url: "https://github.com/beam-community/redbird",
