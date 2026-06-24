@@ -35,6 +35,20 @@ set that in the config.
 config :redbird, key_namespace: "my_app_"
 ```
 
+### Behavior when Redis is unreachable
+
+By default, if a Redis command fails with a connection error, redbird raises —
+which crashes every request that touches a session (a session read or write
+happens on most requests), so a Redis outage takes the whole site down.
+
+Set `on_redis_error: :fail_open` to instead degrade gracefully: a session read
+returns no session and a session write is skipped (and logged), so requests keep
+being served while Redis is down and recover automatically once it is back.
+
+```elixir
+config :redbird, on_redis_error: :fail_open # default: :raise
+```
+
 ### Configure Redix
 
 Redbird uses [Redix] to communicate with Redis. You can pass configuration

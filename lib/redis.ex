@@ -3,6 +3,21 @@ defmodule Redbird.Redis do
   Redis helper functions for Redbird.
   """
 
+  require Logger
+
+  @doc """
+  Configured behavior when a Redis command fails with a connection error.
+
+    * `:raise` (default) — preserve historical behavior: let the error
+      propagate so the request crashes.
+    * `:fail_open` — treat Redis as unavailable: session reads return no
+      session and writes are skipped, so a Redis outage degrades to
+      "no session" instead of crashing every request that touches a session.
+  """
+  def on_redis_error do
+    Application.get_env(:redbird, :on_redis_error, :raise)
+  end
+
   def child_spec(args) do
     %{
       id: Redbird.Redis,
@@ -15,11 +30,24 @@ defmodule Redbird.Redis do
   end
 
   def get(key) do
-    result = Redix.command!(pid(), ["GET", key])
+    case Redix.command(pid(), ["GET", key]) do
+      {:ok, nil} -> :undefined
+      {:ok, response} -> response
+      {:error, error} -> get_error(key, error)
+    end
+  end
 
-    case result do
-      nil -> :undefined
-      response -> response
+  defp get_error(key, error) do
+    case on_redis_error() do
+      :fail_open ->
+        Logger.warning(
+          "Redbird: failing open on session read for #{inspect(key)}; Redis error: #{inspect(error)}"
+        )
+
+        :undefined
+
+      :raise ->
+        raise error
     end
   end
 

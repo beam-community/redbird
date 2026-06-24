@@ -56,10 +56,28 @@ defmodule Plug.Session.REDIS do
 
       response ->
         if counter > 5 do
-          Redbird.RedisError.raise(error: response, key: key)
+          handle_set_failure(key, response)
         else
           set_key_with_retries(key, value, seconds, counter + 1)
         end
+    end
+  end
+
+  # When Redis is unreachable, either fail open (skip persistence, keep serving)
+  # or preserve the historical raise-and-crash behavior, per config.
+  defp handle_set_failure(key, response) do
+    case Redbird.Redis.on_redis_error() do
+      :fail_open ->
+        require Logger
+
+        Logger.warning(
+          "Redbird: failing open on session write for #{inspect(key)}; Redis error: #{inspect(response)}"
+        )
+
+        key
+
+      :raise ->
+        Redbird.RedisError.raise(error: response, key: key)
     end
   end
 
@@ -76,7 +94,7 @@ defmodule Redbird.RedisError do
   @base_message "Redbird was unable to store the session in redis."
 
   def raise(error: error, key: key) do
-    message = "#{@base_message} Redis Error: #{error} key: #{key}"
+    message = "#{@base_message} Redis Error: #{inspect(error)} key: #{key}"
     raise __MODULE__, message
   end
 
